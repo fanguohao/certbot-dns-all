@@ -144,9 +144,11 @@ docker run --rm \
 crontab -e
 ```
 
-添加：
+添加（建议使用以下格式，避免 PATH 与 shell 差异）：
 
 ```cron
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 0 3 * * * docker run --rm -v /opt/certbot-dns-all/letsencrypt:/etc/letsencrypt -v /opt/certbot-dns-all/credentials:/credentials:ro certbot-dns-all renew && docker exec nginx nginx -s reload
 ```
 
@@ -166,4 +168,3 @@ crontab -e
 ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
 ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
 ```
-
